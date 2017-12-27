@@ -41,11 +41,12 @@
         <h2>Consultés récemment</h2>
     </div>
 
-    {% for p in 1..8 %}
+    {% for pdt in lastView %}
     <div class="product col-lg-3 p-1">
         <img src="{{ asset('theme/img/nutella.jpg') }}" /><br />
         <p>
             Nutella 500g
+            {{ nameLV }}
         </p>
     </div>
     {% endfor %}

@@ -22,9 +22,9 @@ class Product
     private $id;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="barCode", type="integer")
+     * @ORM\Column(name="barCode", type="string")
      */
     private $barCode;
 
@@ -38,7 +38,7 @@ class Product
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="lastView_date", type="date")
+     * @ORM\Column(name="lastView_date", type="string")
      */
     private $lastViewDate;
 
