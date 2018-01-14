@@ -41,7 +41,7 @@ class Evaluation
     private $product;
 
      /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Utilisateurs", inversedBy="evaluation")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="evaluation")
      */
     private $user;
 
@@ -152,4 +152,3 @@ class Evaluation
         return $this->user;
     }
 }
-

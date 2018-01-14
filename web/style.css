@@ -14,3 +14,15 @@ div.site-heading-small {
     height:180px;
     padding-top:80px;
 }
+
+.img_index {
+	height: 60%;
+}
+
+.alignPdt{
+	text-align: center;
+}
+
+.lastV-img{
+	max-height: 100%;
+}

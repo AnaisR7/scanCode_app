@@ -3,22 +3,22 @@
 {% block header %}
 <!-- Page Header -->
 <header class="masthead" style="background-image: url('{{ asset('theme/img/home-bg.jpg') }}')">
-  <div class="overlay"></div>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
-        <div class="site-heading">
-          <h1>1, 2, 3... évaluez!</h1>
-          <span class="subheading">Recherchez un produit par code barre</span>
-          {<form method="post" action="{{ path('search') }}">
-              {{ form_widget(form.code_barre) }}
-              <input type="submit" class="btn btn-primary" value="Go!" />
-              {{ form_end(form) }}
-          </form>
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h1>1, 2, 3... évaluez!</h1>
+                    <span class="subheading">Recherchez un produit par code barre</span>
+                    <form method="post" action="{{ path('search') }}">
+                        {{ form_widget(form.code_barre) }}
+                        <input type="submit" class="btn btn-primary" value="Go!" />
+                        {{ form_end(form) }}
+                    </form>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </header>
 {% endblock %}
 
@@ -28,11 +28,13 @@
         <h2>Mieux notés</h2>
     </div>
 
-    {% for p in 1..8 %}
-    <div class="product col-lg-3 p-1">
-        <img src="{{ asset('theme/img/nutella.jpg') }}" /><br />
+    {% for best in bests %}
+    <div class="product alignPdt col-lg-3 p-1">
+        <div class="img_index">
+            <img src="{{ best.image_small_url }}" /><br />
+        </div>
         <p>
-            <a href="{{ path('product') }}">Nutella 750g</a>
+            <a href="{{ path('product', {'cb':best.code}) }}">{{ best.product_name }}</a>
         </p>
     </div>
     {% endfor %}
@@ -41,12 +43,14 @@
         <h2>Consultés récemment</h2>
     </div>
 
-    {% for pdt in lastView %}
-    <div class="product col-lg-3 p-1">
-        <img src="{{ asset('theme/img/nutella.jpg') }}" /><br />
+    {% for pdtLV in dataPdt  %}
+    <div class="product alignPdt col-lg-3 p-1" >
+        <div class="img_index">
+            <img src="{{ pdtLV.image_small_url }}" class="img-responsive lastV-img" />
+        </div>
         <p>
-            Nutella 500g
-            {{ nameLV }}
+            <a href="{{ path('product', {'cb':pdtLV.code}) }}">{{ pdtLV.product_name }}</a>
+
         </p>
     </div>
     {% endfor %}

@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity
@@ -22,21 +23,12 @@ class User extends BaseUser
     /**
      * @ORM\Column(type="string", length=255)
      *
-     * @Assert\NotBlank(message="Please enter your name.", groups={"Registration", "Profile"})
-     * @Assert\Length(
-     *     min=3,
-     *     max=255,
-     *     minMessage="The name is too short.",
-     *     maxMessage="The name is too long.",
-     *     groups={"Registration", "Profile"}
-     * )
      */
     protected $name;
 
     /**
      * @ORM\Column(type="date")
      *
-     * @Assert\NotBlank(message="Please enter your birthdate", groups={"Registration", "Profile"})
      */
     protected $birthdate;
 
@@ -45,6 +37,11 @@ class User extends BaseUser
      *
      */
     protected $gender;
+
+    /**
+    *@ORM\OneToMany(targetEntity="Evaluation", mappedBy="user")
+    */
+    private $evaluation;
 
     /**
      * Get name
@@ -80,5 +77,81 @@ class User extends BaseUser
     {
         parent::__construct();
         // your own logic
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return User
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Set birthdate
+     *
+     * @param \DateTime $birthdate
+     *
+     * @return User
+     */
+    public function setBirthdate($birthdate)
+    {
+        $this->birthdate = $birthdate;
+
+        return $this;
+    }
+
+    /**
+     * Set gender
+     *
+     * @param string $gender
+     *
+     * @return User
+     */
+    public function setGender($gender)
+    {
+        $this->gender = $gender;
+
+        return $this;
+    }
+
+    /**
+     * Add evaluation
+     *
+     * @param \AppBundle\Entity\Evaluation $evaluation
+     *
+     * @return User
+     */
+    public function addEvaluation(\AppBundle\Entity\Evaluation $evaluation)
+    {
+        $this->evaluation[] = $evaluation;
+
+        return $this;
+    }
+
+    /**
+     * Remove evaluation
+     *
+     * @param \AppBundle\Entity\Evaluation $evaluation
+     */
+    public function removeEvaluation(\AppBundle\Entity\Evaluation $evaluation)
+    {
+        $this->evaluation->removeElement($evaluation);
+    }
+
+    /**
+     * Get evaluation
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getEvaluation()
+    {
+        return $this->evaluation;
     }
 }

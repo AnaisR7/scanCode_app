@@ -2,6 +2,8 @@
 
 namespace AppBundle\Repository;
 
+use Doctrine\ORM\EntityRepository;
+
 /**
  * ProductRepository
  *
@@ -10,4 +12,28 @@ namespace AppBundle\Repository;
  */
 class ProductRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function findBestProducts()
+    {	
+        return 
+        	$this->getEntityManager()->createQuery(
+                'SELECT p.barCode, AVG(e.mark) as moy 
+                 FROM AppBundle:Product p 
+                 JOIN p.evaluation e 
+                 WHERE p.id =e.product 
+                 GROUP BY p.barCode 
+                 ORDER BY moy DESC'
+            )->setMaxResults(8)
+            ->getResult();
+    }
+
+    public function findMark($pdtId)
+    {	
+        return 
+        	$this->getEntityManager()->createQuery(
+                'SELECT AVG(eval.mark) 
+                 FROM AppBundle:Evaluation eval
+                 WHERE eval.product = :pdtId'
+            )->setParameter('pdtId', $pdtId)
+            ->getResult();
+    }
 }

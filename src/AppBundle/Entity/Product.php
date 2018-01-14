@@ -42,6 +42,11 @@ class Product
      */
     private $lastViewDate;
 
+    /**
+    *@ORM\OneToMany(targetEntity="Evaluation", mappedBy="product")
+    */
+    private $evaluation;
+
 
     /**
      * Get id
@@ -124,5 +129,45 @@ class Product
     {
         return $this->lastViewDate;
     }
-}
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->evaluation = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
+    /**
+     * Add evaluation
+     *
+     * @param \AppBundle\Entity\Evaluation $evaluation
+     *
+     * @return Product
+     */
+    public function addEvaluation(\AppBundle\Entity\Evaluation $evaluation)
+    {
+        $this->evaluation[] = $evaluation;
+
+        return $this;
+    }
+
+    /**
+     * Remove evaluation
+     *
+     * @param \AppBundle\Entity\Evaluation $evaluation
+     */
+    public function removeEvaluation(\AppBundle\Entity\Evaluation $evaluation)
+    {
+        $this->evaluation->removeElement($evaluation);
+    }
+
+    /**
+     * Get evaluation
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getEvaluation()
+    {
+        return $this->evaluation;
+    }
+}
